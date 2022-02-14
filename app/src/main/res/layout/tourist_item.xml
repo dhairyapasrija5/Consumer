@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Person 1"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:id="@+id/person_name"
+        android:fontFamily="@font/inter"
+        >
+
+    </TextView>
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        app:layout_constraintTop_toBottomOf="@id/person_name"
+        android:src="@drawable/ic_baseline_star_24"
+        app:layout_constraintStart_toStartOf="@id/person_name"
+        android:layout_marginTop="8dp"
+        android:id="@+id/star_image">
+
+    </ImageView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="4.7"
+        android:textColor="@color/black"
+        android:textSize="15sp"
+        app:layout_constraintLeft_toRightOf="@id/star_image"
+        app:layout_constraintTop_toTopOf="@id/star_image"
+        android:layout_marginLeft="5dp"
+        android:textStyle="bold"
+        android:id="@+id/person_rating"
+        android:fontFamily="@font/inter"
+        >
+
+    </TextView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="(645)"
+        android:textSize="15sp"
+        app:layout_constraintTop_toTopOf="@id/star_image"
+        app:layout_constraintLeft_toRightOf="@id/person_rating"
+        android:layout_marginLeft="5dp"
+        android:fontFamily="@font/inter"
+        >
+
+    </TextView>
+
+    <RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/call_person"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="20dp"
+        android:background="@drawable/avatar"
+        app:layout_constraintRight_toLeftOf="@id/message_person"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:backgroundTint="#000000"
+        android:src="@drawable/phone"
+        app:layout_constraintRight_toLeftOf="@id/message_person"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="13dp"
+        android:layout_marginRight="28dp"
+        android:id="@+id/phone_symbol"
+        >
+
+    </ImageView>
+
+    <ImageView
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:src="@drawable/messgae_icon"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginRight="19dp"
+        android:layout_marginTop="12dp"
+        android:id="@+id/message_person"
+        >
+
+    </ImageView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Call"
+        app:layout_constraintTop_toBottomOf="@id/call_person"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="@id/phone_symbol"
+       android:fontFamily="@font/inter"
+        >
+
+    </TextView>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Message"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@id/call_person"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginRight="8dp"
+        android:textColor="@color/black"
+        android:fontFamily="@font/inter"
+     >
+    </TextView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RoomServiceFragment"
+    android:background="@color/white">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:text="Room Service"
+        android:textColor="#070707"
+        android:textSize="25sp"
+        android:textStyle="bold"
+        android:id="@+id/room_service"
+        android:layout_marginTop="20dp"
+        android:fontFamily="@font/inter"
+        >
+
+    </TextView>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Order is placed!"
+        android:textSize="16sp"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:id="@+id/order_message1"
+        android:layout_below="@+id/room_service"
+        android:singleLine="true"
+        android:ellipsize="marquee"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:scrollHorizontally="true"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:gravity="center"
+        android:fontFamily="@font/inter"></TextView>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/categoryRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/cardView"
+        android:layout_below="@+id/order_message1"
+        android:padding="10dp">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+     <androidx.cardview.widget.CardView
+         android:id="@+id/cardView"
+         android:layout_width="match_parent"
+         android:layout_height="70dp"
+         android:layout_alignParentBottom="true"
+         android:visibility="gone">
+
+         <LinearLayout
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:layout_marginLeft="16dp"
+             android:layout_marginRight="16dp"
+             android:layout_marginTop="12dp"
+             android:layout_marginBottom="12dp"
+             android:orientation="horizontal"
+             android:weightSum="2">
+
+             <LinearLayout
+                 android:layout_width="0dp"
+                 android:layout_height="match_parent"
+                 android:layout_weight="1"
+                 android:weightSum="2"
+                 android:orientation="vertical">
+              <TextView
+                  android:layout_width="match_parent"
+                  android:layout_height="0dp"
+                  android:layout_weight="1"
+                  android:text="260"
+                  android:textStyle="bold"
+                  android:textColor="@color/black"
+                  android:textSize="16sp"
+                  android:id="@+id/totalprice"
+                  android:fontFamily="@font/inter"
+                  ></TextView>
+                 <TextView
+                     android:layout_width="match_parent"
+                     android:layout_height="0dp"
+                     android:layout_weight="1"
+                     android:text="2 items"
+                     android:textSize="16sp"
+                     android:id="@+id/noofitems"
+                     android:fontFamily="@font/inter"
+                     ></TextView>
+             </LinearLayout>
+
+             <Button
+                 android:layout_width="0dp"
+                 android:layout_height="match_parent"
+                 android:layout_weight="1"
+                 android:text="CONFIRM"
+                 android:textColor="@color/white"
+                 android:id="@+id/confirmRoomService"
+                 android:background="@drawable/confirm_button_style"
+                 >
+             </Button>
+
+         </LinearLayout>
+
+     </androidx.cardview.widget.CardView>
+
+
+</RelativeLayout>
