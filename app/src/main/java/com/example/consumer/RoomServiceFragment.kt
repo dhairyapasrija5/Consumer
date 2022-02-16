@@ -56,7 +56,7 @@ class RoomServiceFragment : Fragment(), Communicator {
         vw= inflater.inflate(R.layout.fragment_room_service, container, false)
         super.onCreate(savedInstanceState)
 
-        var args = arguments
+        val args = arguments
         var bundleList: ArrayList<BundleByOrderFragment>
         bundleList = arrayListOf()
         categoryList = arrayListOf()
@@ -66,42 +66,13 @@ class RoomServiceFragment : Fragment(), Communicator {
             categoryList = bundleList[0].categoryList
             buttonclicked = bundleList[0].name.toString()
             time=bundleList[0].time.toString()
+            ID=bundleList[0].ID.toString()
         }
         else
             time= LocalTime.now().atOffset(ZoneOffset.of("+02:00")).format(DateTimeFormatter.ofPattern("HH:mm:ss"))
 
 
-        // if user placed two orders one after another then how to resolve that like for which order i have to show order confirmed
-
-
-
-        listener2=object :ValueEventListener{
-            override fun onDataChange(snapshot: DataSnapshot) {
-
-                if(snapshot.exists())
-                {
-                    ID = Settings.Secure.getString(
-                        activity?.contentResolver ,
-                        Settings.Secure.ANDROID_ID
-                    )
-
-                    if(snapshot.child(ID).child("confirmation").value==true) {
-                          orderConfirmation= view?.findViewById(R.id.order_message1) !!
-                          orderConfirmation.text  = "Order is confirmed"
-                          //    Toast.makeText(activity,"Order is confirmed",Toast.LENGTH_LONG)
-                    }
-                }
-            }
-            override fun onCancelled(error: DatabaseError) {
-                TODO("Not yet implemented")
-            }
-        }
-
-        mDatabaseReference1=FirebaseDatabase.getInstance().getReference("Orders")
-        mDatabaseReference1.addValueEventListener(listener2)
-
-
-         if(buttonclicked=="default" ||  buttonclicked=="add")
+        if(buttonclicked=="default" ||  buttonclicked=="add")
          {
              orderConfirmation= vw?.findViewById(R.id.order_message1)!!
              orderConfirmation.visibility =View.GONE
@@ -109,7 +80,7 @@ class RoomServiceFragment : Fragment(), Communicator {
 
          if(buttonclicked=="default"){
 
-            var dialog:LoadingDialog=LoadingDialog(activity)
+            val dialog=LoadingDialog(activity)
             dialog.startLoadingDialog()
             var c= Runnable {
                 dialog.dismissDialog()
@@ -174,7 +145,7 @@ class RoomServiceFragment : Fragment(), Communicator {
 
                                 for (subcategory in category.children) {
 
-                                    var subcategoryName: String = subcategory.key.toString()
+                                    val subcategoryName: String = subcategory.key.toString()
                                     foodItemList = arrayListOf()
                                     laundryItemList = arrayListOf()
                                     rentalItemList = arrayListOf()
@@ -271,6 +242,26 @@ class RoomServiceFragment : Fragment(), Communicator {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        listener2=object :ValueEventListener{
+            override fun onDataChange(snapshot: DataSnapshot) {
+
+                if(snapshot.exists() && buttonclicked=="confirm")
+                {
+
+                    if(snapshot.child(ID).child("confirmation").value==true) {
+                        orderConfirmation= view?.findViewById(R.id.order_message1) !!
+                        orderConfirmation.text  = "Order is confirmed"
+                    }
+                }
+            }
+            override fun onCancelled(error: DatabaseError) {
+                TODO("Not yet implemented")
+            }
+        }
+
+        mDatabaseReference1=FirebaseDatabase.getInstance().getReference("Orders")
+        mDatabaseReference1.addValueEventListener(listener2)
+
         confirmButton = view.findViewById(R.id.confirmRoomService)
 
         confirmButton.setOnClickListener {
@@ -288,11 +279,11 @@ class RoomServiceFragment : Fragment(), Communicator {
 
                             if (categoryList[i].subcategoryList[j].foodItemList[k].counter > 0) {
 
-                                var itemName: String =
+                                val itemName: String =
                                     categoryList[i].subcategoryList[j].foodItemList[k].name
-                                var itemTotalPrice: Int = categoryList[i].subcategoryList[j].foodItemList[k].price.toInt() *
+                                val itemTotalPrice: Int = categoryList[i].subcategoryList[j].foodItemList[k].price.toInt() *
                                         categoryList[i].subcategoryList[j].foodItemList[k].counter
-                                var quantity: Int =
+                                val quantity: Int =
                                     categoryList[i].subcategoryList[j].foodItemList[k].counter
                                 itemList.add(OrderItem(itemName, quantity, itemTotalPrice))
                                 totalPrice += itemTotalPrice
@@ -303,11 +294,11 @@ class RoomServiceFragment : Fragment(), Communicator {
                         for (k in categoryList[i].subcategoryList[j].rentalItemList.indices) {
 
                             if (categoryList[i].subcategoryList[j].rentalItemList[k].counter > 0) {
-                                var itemName: String =
+                                val itemName: String =
                                     categoryList[i].subcategoryList[j].rentalItemList[k].name
-                                var itemTotalPrice: Int =
+                                val itemTotalPrice: Int =
                                     categoryList[i].subcategoryList[j].rentalItemList[k].pricePerDay.toInt() * categoryList[i].subcategoryList[j].rentalItemList[k].counter
-                                var quantity: Int =
+                                val quantity: Int =
                                     categoryList[i].subcategoryList[j].rentalItemList[k].counter
                                 itemList.add(OrderItem(itemName, quantity, itemTotalPrice))
                                 totalPrice += itemTotalPrice
@@ -319,11 +310,11 @@ class RoomServiceFragment : Fragment(), Communicator {
                         for (k in categoryList[i].subcategoryList[j].laundryItemList.indices) {
 
                             if (categoryList[i].subcategoryList[j].laundryItemList[k].counter > 0) {
-                                var itemName: String =
+                                val itemName: String =
                                     categoryList[i].subcategoryList[j].laundryItemList[k].name +" ("+categoryList[i].subcategoryList[j].Subcategory+")"
-                                var itemTotalPrice: Int =
+                                val itemTotalPrice: Int =
                                     categoryList[i].subcategoryList[j].laundryItemList[k].price.toInt() * categoryList[i].subcategoryList[j].laundryItemList[k].counter
-                                var quantity: Int =
+                                val quantity: Int =
                                     categoryList[i].subcategoryList[j].laundryItemList[k].counter
                                 itemList.add(OrderItem(itemName, quantity, itemTotalPrice))
                                 totalPrice += itemTotalPrice

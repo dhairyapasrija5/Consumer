@@ -5,8 +5,6 @@ import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
 import android.text.TextUtils
-import android.text.TextUtils.replace
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,7 +50,6 @@ class OrderSummaryFragment : Fragment() {
 
         if (args != null) {
             bundleItems = args.getParcelableArrayList<BundleItems>("items")!!
-            Log.d("order",bundleItems[0].categorylist.size.toString())
             items=bundleItems[0].itemList
         }
 
@@ -69,7 +66,7 @@ class OrderSummaryFragment : Fragment() {
             addMoreButton=view.findViewById(R.id.add_more)
         }
 
-       var billingPrice:Long= 0
+        var billingPrice:Long= 0
 
         for (i in items.indices)
             billingPrice += items[i].totalItemPrice
@@ -78,11 +75,6 @@ class OrderSummaryFragment : Fragment() {
 
         orderList = arrayListOf()
 
-
-        val nowUtc: Instant = Instant.now()
-        val asiaSingapore: ZoneId = ZoneId.of("Asia/Calcutta")
-        val nowAsiaSingapore: ZonedDateTime = ZonedDateTime.ofInstant(nowUtc, asiaSingapore)
-        Log.d("time",nowAsiaSingapore.toString())
         var currentDate = LocalDate.now().format(DateTimeFormatter.ofPattern("dd-MM-yyyy"))
 
         currentTime = LocalTime.now().atOffset(ZoneOffset.of("+02:00")).format(DateTimeFormatter.ofPattern("HH:mm:ss"))
@@ -94,7 +86,7 @@ class OrderSummaryFragment : Fragment() {
 
         orderList.add(
             Orders(
-                "100",
+                (1..100).random().toString(),
                 currentDate,
                 currentTime.toString(),
                 items,
@@ -112,16 +104,12 @@ class OrderSummaryFragment : Fragment() {
         listener = object : ValueEventListener {
             override fun onDataChange(snapshot: DataSnapshot) {
 
-                if (snapshot.child(ID).child("confirmation").value == false) {
-
+                if (snapshot.child(ID).child("confirmation").value == false)
                     confirmation=false
-                } else {
-
-                    confirmation=true
-                    }
+                 else
+                     confirmation=true
 
             }
-
             override fun onCancelled(error: DatabaseError) {
                 TODO("Not yet implemented")
             }
@@ -154,9 +142,7 @@ class OrderSummaryFragment : Fragment() {
                     db.removeEventListener(listener)
                     Commit("confirm")
 
-
             }
-            Log.d("confirmation",confirmation.toString())
         }
 
         addMoreButton.setOnClickListener {
@@ -181,7 +167,7 @@ class OrderSummaryFragment : Fragment() {
             else
                 time = "abc"
 
-            bundleList.add(BundleByOrderFragment(msg, bundleItems[0].categorylist, time))
+            bundleList.add(BundleByOrderFragment(msg, bundleItems[0].categorylist, time,ID))
             bundle.putParcelableArrayList("items", bundleList)
             var roomServiceFragment = RoomServiceFragment()
             roomServiceFragment.arguments = bundle

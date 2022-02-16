@@ -3,10 +3,11 @@ package com.example.consumer
 import android.os.Parcel
 import android.os.Parcelable
 
-data class BundleByOrderFragment(var name: String?, var categoryList:ArrayList<Category>, var time: String?): Parcelable {
+data class BundleByOrderFragment(var name: String?, var categoryList:ArrayList<Category>, var time: String?, var ID: String?): Parcelable {
     constructor(parcel: Parcel) : this(
         parcel.readString(),
         TODO("categoryList"),
+        parcel.readString(),
         parcel.readString()
     ) {
     }
@@ -14,6 +15,7 @@ data class BundleByOrderFragment(var name: String?, var categoryList:ArrayList<C
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeString(name)
         parcel.writeString(time)
+        parcel.writeString(ID)
     }
 
     override fun describeContents(): Int {
